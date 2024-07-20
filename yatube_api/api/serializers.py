@@ -6,7 +6,7 @@ from posts.models import Comment, Follow, Group, Post, User
 class GroupSerializer(serializers.ModelSerializer):
     """Сериализатор для модели Group."""
     class Meta:
-        fields = '__all__'
+        fields = ['id', 'title', 'slug', 'description']
         model = Group
 
 
@@ -16,7 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
                                           read_only=True)
 
     class Meta:
-        fields = '__all__'
+        fields = ['id', 'text', 'pub_date', 'author', 'image', 'group']
         model = Post
 
 
@@ -27,7 +27,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ['id', 'author', 'post', 'text', 'created']
         read_only_fields = ('post',)
 
 
@@ -45,7 +45,7 @@ class FollowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Follow
-        fields = '__all__'
+        fields = ['user', 'following']
 
     def validate(self, data):
         user = self.context['request'].user
